@@ -257,9 +257,10 @@ void GLWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GLWidget::adaptaObjecteTamanyWidget(Objecte *obj)
 {
-    mat4 matScale = Scale(1/a,1/p,1/h);
+    //esclar sobre el maxim dels tres o a o p o h
+    mat4 matScale = Scale(1/a,1/h,1/p);
     obj->aplicaTG(matScale);
-    point4 posicio = point4(0.0 , 0.0 , -0.6 , 1.0);
+    point4 posicio = point4(0.0 , 0.0 , -0.6, 1.0);
     obj->aplicaTGCentrat(Translate(posicio));
 }
 
