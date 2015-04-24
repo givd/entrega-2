@@ -257,8 +257,15 @@ void GLWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GLWidget::adaptaObjecteTamanyWidget(Objecte *obj)
 {
-    //esclar sobre el maxim dels tres o a o p o h
-    mat4 matScale = Scale(1/a,1/h,1/p);
+    int max;
+    if (a>p && a>h){
+        max = a;
+    } else if (h>a && h>p){
+        max = h;
+    } else {
+        max = p;
+    }
+    mat4 matScale = Scale(1/max,1/max,1/max);
     obj->aplicaTG(matScale);
     point4 posicio = point4(0.0 , 0.0 , -0.6, 1.0);
     obj->aplicaTGCentrat(Translate(posicio));
@@ -326,6 +333,13 @@ void GLWidget::newSalaBillar()
     //QString q = "://resources/taula.obj";
     //newObj(q);
     newPlaBase();
+    newBola();
+    newConjuntBoles();
+}
+
+void GLWidget::newTaulaBillar()
+{
+    newTaulaBillar();
     newBola();
     newConjuntBoles();
 }
