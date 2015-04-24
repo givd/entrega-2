@@ -22,8 +22,7 @@ SOURCES += main.cpp\
     readfile.cpp \
     plabase.cpp \
     bola.cpp \
-    conjuntboles.cpp \
-    notes.cpp
+    conjuntboles.cpp
 
 HEADERS  += mainwindow.h \
     vec.h \
@@ -37,8 +36,7 @@ HEADERS  += mainwindow.h \
     readfile.h \
     plabase.h \
     bola.h \
-    conjuntboles.h \
-    notes.h
+    conjuntboles.h
 
 FORMS    += mainwindow.ui
 
