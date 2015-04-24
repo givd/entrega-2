@@ -35,13 +35,25 @@ void Camera::ini(int a, int h, Capsa3D capsaMinima)
     vp.pmin[0] = 0;
     vp.pmin[1] = 0;
 
+    piram.dant = -5;
+    piram.dpost= 5;
+
+    wd.pmin[0] = -1;
+    wd.pmin[1] = -1;
+    wd.a = 2;
+    wd.h = 2;
+
 }
 
 
 
 void Camera::toGPU(QGLShaderProgram *program)
 {
-    // CODI A MODIFICAR DURANT LA PRACTICA 2
+    model_view = program->uniformLocation("model_view");
+    glUniformMatrix4fv(model_view,1,GL_TRUE,this->modView);
+
+    projection = program->uniformLocation("projection");
+    glUniformMatrix4fv(projection,1,GL_TRUE,this->proj);
 }
 
 
@@ -51,14 +63,21 @@ void Camera::toGPU(QGLShaderProgram *program)
 
 void Camera::CalculaMatriuModelView()
 {
-    // CODI A MODIFICAR DURANT LA PRACTICA 2
     modView = identity();
+
+    vec4 eye,at,up;
+
+    eye = CalculObs(this->vs.vrp, this->piram.d, this->vs.angx, this->vs.angy);
+    at = vs.vrp;
+    up = vec4(CalculVup(this->vs.angx,this->vs.angy, this->vs.angz),0.0);
+    this->modView = LookAt(eye,at,up);
 }
 
 void Camera::CalculaMatriuProjection()
 {
-    // CODI A MODIFICAR DURANT LA PRACTICA 2
     proj = identity();
+
+    this->proj = Frustum(wd.pmin.x, wd.pmin.x + wd.a, wd.pmin.y, wd.pmin.y + wd.h, piram.dant, piram.dpost);
 
 }
 
@@ -86,15 +105,15 @@ void Camera::setViewport(int x, int y, int a, int h)
 
 void Camera::setModelViewToGPU(QGLShaderProgram *program, mat4 m)
 {
-
-   // CODI A MODIFICAR DURANT LA PRACTICA 2
+    model_view = program->uniformLocation("model_view");
+    glUniformMatrix4fv(model_view,1,GL_TRUE,m);
 
 }
 
 void Camera::setProjectionToGPU(QGLShaderProgram *program, mat4 p)
 {
-
-       // CODI A MODIFICAR DURANT LA PRACTICA 2
+    projection = program->uniformLocation("projection");
+    glUniformMatrix4fv(projection,1,GL_TRUE,p);
 }
 
 void  Camera::AmpliaWindow(double r)
