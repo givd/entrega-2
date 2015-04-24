@@ -257,7 +257,7 @@ void GLWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GLWidget::adaptaObjecteTamanyWidget(Objecte *obj)
 {
-    int max;
+    float max;
     if (a>p && a>h){
         max = a;
     } else if (h>a && h>p){
