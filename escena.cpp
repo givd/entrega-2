@@ -38,6 +38,8 @@ void Escena::addBoles(conjuntBoles *boles){
 void Escena::CapsaMinCont3DEscena()
 {
     // Metode a implementar
+
+
 }
 
 void Escena::aplicaTG(mat4 m) {

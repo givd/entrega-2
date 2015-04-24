@@ -257,9 +257,17 @@ void GLWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GLWidget::adaptaObjecteTamanyWidget(Objecte *obj)
 {
-    mat4 matScale = Scale(1/a,1/p,1/h);
+    int max;
+    if (a>p && a>h){
+        max = a;
+    } else if (h>a && h>p){
+        max = h;
+    } else {
+        max = p;
+    }
+    mat4 matScale = Scale(1/max,1/max,1/max);
     obj->aplicaTG(matScale);
-    point4 posicio = point4(0.0 , 0.0 , -0.6 , 1.0);
+    point4 posicio = point4(0.0 , 0.0 , -0.6, 1.0);
     obj->aplicaTGCentrat(Translate(posicio));
 }
 
@@ -279,6 +287,7 @@ void GLWidget::newPlaBase()
     PlaBase *obj;
     obj = new PlaBase();
     obj->make();
+    obj->aplicaTG(Scale(0.5,1,1));
     newObjecte(obj);
 }
 
