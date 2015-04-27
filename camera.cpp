@@ -47,6 +47,10 @@ void Camera::ini(int a, int h, Capsa3D capsaMinima)
 
 void Camera::toGPU(QGLShaderProgram *program)
 {
+    CalculaMatriuModelView();
+    CalculaMatriuProjection();
+    CalculAngleOberturaHoritzontal();
+    CalculAngleOberturaVertical();
     model_view = program->uniformLocation("model_view");
     glUniformMatrix4fv(model_view,1,GL_TRUE,this->modView);
 

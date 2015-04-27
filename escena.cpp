@@ -32,7 +32,7 @@ void Escena::iniCamera(bool camGeneral, int ampladaViewport, int alcadaViewport,
         this->camGeneral->vs.obs = vec4(0,20,0,1);
         this->camGeneral->vs.vup = vec4(0,0,1,0);
         setVRPCamera(1,p);
-        //this->camGeneral->program = program;
+        setAnglesCamera(true,180.0,90.0,90.0);
         this->camGeneral->toGPU(program);
     }
 

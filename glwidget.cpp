@@ -15,9 +15,9 @@ GLWidget::GLWidget(QWidget *parent)
 
     cameraActual = true;
 
-    xRot = 0;
+    /*xRot = 0;
     yRot = 0;
-    zRot = 0;
+    zRot = 0;*/
 
     a = 20.0;
     h = 20.0;
@@ -135,14 +135,15 @@ void GLWidget::initializeGL()
 
     glClearColor(clearColor.redF(), clearColor.greenF(), clearColor.blueF(), clearColor.alphaF());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    esc->iniCamera(true,a,h,program);
 
 }
 
 void GLWidget::paintGL()
 {
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-       esc->camGeneral->toGPU(program);
-       esc->draw();
+    esc->camGeneral->toGPU(program);
+    esc->draw();
    /*
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
@@ -183,7 +184,7 @@ void GLWidget::resizeGL(int width, int height)
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
-    lastPos = event->pos();
+    //lastPos = event->pos();
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
