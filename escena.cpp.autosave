@@ -58,7 +58,7 @@ void Escena::setWindowCamera(bool camGeneral, bool retallat, Capsa2D window)
         if(retallat){
             this->camGeneral->CalculWindowAmbRetallat();
         }else{
-            this->camGeneral->CalculWindow(window);
+            this->camGeneral->wd = window;
         }
     }
 }
@@ -67,6 +67,7 @@ void Escena::setDCamera(bool camGeneral, float d)
 {
     if(camGeneral){
         this->camGeneral->piram.d=d;
+        this->camGeneral->vs.obs=this->camGeneral->CalculObs(this->camGeneral->vs.vrp,d,this->camGeneral->vs.angx,this->camGeneral->vs.angy);
     }
 }
 
