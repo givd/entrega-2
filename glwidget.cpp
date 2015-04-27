@@ -140,6 +140,10 @@ void GLWidget::initializeGL()
 
 void GLWidget::paintGL()
 {
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+       esc->camGeneral->toGPU(program);
+       esc->draw();
+   /*
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
    qNormalizeAngle(xRot);
@@ -157,6 +161,7 @@ void GLWidget::paintGL()
    xRot = 0;
    yRot = 0;
    zRot = 0;
+   /*/
 }
 
 

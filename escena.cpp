@@ -32,7 +32,7 @@ void Escena::iniCamera(bool camGeneral, int ampladaViewport, int alcadaViewport,
         this->camGeneral->vs.obs = vec4(0,20,0,1);
         this->camGeneral->vs.vup = vec4(0,0,1,0);
         setVRPCamera(1,p);
-        this->camGeneral->program = program;
+        //this->camGeneral->program = program;
         this->camGeneral->toGPU(program);
     }
 
@@ -58,7 +58,7 @@ void Escena::setWindowCamera(bool camGeneral, bool retallat, Capsa2D window)
         if(retallat){
             this->camGeneral->CalculWindowAmbRetallat();
         }else{
-            this->camGeneral->CalculWindow(window);
+            this->camGeneral->wd = window;
         }
     }
 }
@@ -67,6 +67,7 @@ void Escena::setDCamera(bool camGeneral, float d)
 {
     if(camGeneral){
         this->camGeneral->piram.d=d;
+        this->camGeneral->vs.obs=this->camGeneral->CalculObs(this->camGeneral->vs.vrp,d,this->camGeneral->vs.angx,this->camGeneral->vs.angy);
     }
 }
 
