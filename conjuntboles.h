@@ -21,7 +21,8 @@ public:
     // Pintat amb la GPU
     virtual void draw();
     void toGPU(QGLShaderProgram *pr);
-    // Capsa3D calculCapsa3D();
+    //void calculCapsa3D();
+    Capsa3D capsa;
 
     Bola *boles[NUM_BOLES];
     const vec4 *positions[NUM_BOLES];

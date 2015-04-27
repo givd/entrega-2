@@ -52,6 +52,8 @@ protected:
 private:
     Escena *esc;
 
+    bool cameraActual;
+
     int xRot;
     int yRot;
     int zRot;

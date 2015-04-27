@@ -4,7 +4,7 @@ Camera::Camera()
 {
     vs.vrp = vec4(0.0, 0.0, 0.0, 1.0);
     vs.vup = vec4(0.0, 1.0, 0.0, 0.0);
-    vs.obs = vec4(0.0, 0.0, 200.0, 1.0);
+    vs.obs = vec4(0.0, 20.0, 0.0, 1.0);
 
     vs.angx = 0;
     vs.angy = 0;
@@ -22,27 +22,25 @@ Camera::Camera()
 void Camera::ini(int a, int h, Capsa3D capsaMinima)
 {
     // Calcul del vrp com el centre de la capsa minima contenedora 3D
-    // CAL IMPLEMENTAR
-    // CODI A MODIFICAR DURANT LA PRACTICA 2
+    vs.vrp[0] = capsaMinima.pmin.x + capsaMinima.a/2;
+    vs.vrp[1] = capsaMinima.pmin.y + capsaMinima.h/2;
+    vs.vrp[2] = capsaMinima.pmin.z + capsaMinima.p/2;
 
-    vs.vrp[0] = 0.0;
-    vs.vrp[1] = 0.0;
-    vs.vrp[2] = 0.0;
-
-
+    // Establim la mida del ViewPort
     vp.a = a;
     vp.h = h;
     vp.pmin[0] = 0;
     vp.pmin[1] = 0;
 
-    piram.dant = -5;
-    piram.dpost= 5;
-
-    wd.pmin[0] = -1;
-    wd.pmin[1] = -1;
+    //Establim la mida de la Window
     wd.a = 2;
     wd.h = 2;
+    wd.pmin[0] = -1;
+    wd.pmin[1] = -1;
 
+
+    piram.dant = -5;
+    piram.dpost= 5;
 }
 
 
@@ -86,11 +84,11 @@ void Camera::CalculWindow( Capsa3D c)
 {
    // CODI A MODIFICAR DURANT LA PRACTICA 2
 
-    wd.pmin.x = -1;
-    wd.pmin.y = -1;
+    wd.pmin.x = c.pmin.x;
+    wd.pmin.y = c.pmin.y;
 
-    wd.a = 2;
-    wd.h = 2;
+    wd.a = c.a;
+    wd.h = c.h;
 
 
 }

@@ -17,6 +17,7 @@
 #include <plabase.h>
 #include <bola.h>
 #include <conjuntboles.h>
+#include <camera.h>
 
 using namespace std;
 
@@ -25,6 +26,12 @@ class Escena
 public:
     Escena();
     ~Escena();
+
+    void iniCamera(bool camGeneral, int ampladaViewport, int alcadaViewport, QGLShaderProgram *program);
+    void setAnglesCamera(bool camGeneral, float angX, float angY, float angZ);
+    void setVRPCamera(bool camGeneral, vec4 vrp);
+    void setWindowCamera(bool camGeneral, bool retallat, Capsa2D window);
+    void setDCamera(bool camGeneral, float d);
 
     void addObjecte(Objecte *obj);
     void addBoles(conjuntBoles *boles);
@@ -35,9 +42,13 @@ public:
 
     void draw();
     void CapsaMinCont3DEscena();
+    Capsa3D ajuntaCapses(Capsa3D c1, Capsa3D c2);
 
     // Capsa contenedora de l'escena
     Capsa3D capsaMinima;
+
+    // Camera
+    Camera *camGeneral;
 
     // Objectes de l'escena: a modificar. Ara nomes té un objecte: la taula de billar.
     // Cal afegir la bola blanca o el pla base per testejar o les 15 boles

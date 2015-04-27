@@ -7,6 +7,7 @@ Objecte::Objecte(int npoints, QObject *parent) : numPoints(npoints) ,
     points = new point4[npoints];
     colors = new color4[npoints];
     vertexTextura = new vec2[npoints];
+    //capsa = calculCapsa3D();
 }
 
 Objecte::Objecte(int npoints, QString n) : numPoints(npoints)
@@ -24,7 +25,7 @@ Objecte::Objecte(int npoints, QString n) : numPoints(npoints)
     Index = 0;
     readObj(n);
     make();
-
+    //capsa = calculCapsa3D();
 }
 
 
@@ -82,6 +83,54 @@ Capsa3D Objecte::calculCapsa3D()
     return capsa;
 }
 
+Capsa3D Objecte::recalculaCapsa3D(Capsa3D capsa)
+{
+
+    //calcula la capsa mínima contenidora d'un objecte
+    int i;
+    vec3    pmin, pmax;
+    Capsa3D nova_Capsa = this->calculCapsa3D();
+
+    //inicialitzem pmin i pmax
+    pmin.x = capsa.pmin.x;
+    pmin.y = capsa.pmin.y;
+    pmin.z = capsa.pmin.z;
+    pmax.x = capsa.pmin.x+capsa.a;
+    pmax.y = capsa.pmin.y+capsa.h;
+    pmax.z = capsa.pmin.z+capsa.p;
+
+    //Recorrem cada punt per trobar els maxims i els minims
+
+    //Primers els màxims
+    if ((nova_Capsa.pmin.x+nova_Capsa.a)>pmax.x){
+        pmax.x = nova_Capsa.pmin.x + nova_Capsa.a;
+    }
+    if ((nova_Capsa.pmin.y+nova_Capsa.h)>pmax.y){
+        pmax.y = nova_Capsa.pmin.y + nova_Capsa.h;
+    }
+    if ((nova_Capsa.pmin.z+nova_Capsa.p)>pmax.z){
+        pmax.z = nova_Capsa.pmin.z + nova_Capsa.p;
+    }
+    //I després els mínims
+    if (nova_Capsa.pmin.x<pmin.x){
+        pmin.x = nova_Capsa.pmin.x;
+    }
+    if (nova_Capsa.pmin.y<pmin.y){
+        pmin.y = nova_Capsa.pmin.y;
+    }
+    if (nova_Capsa.pmin.z<pmin.z){
+        pmin.z = nova_Capsa.pmin.z;
+    }
+
+    //Un cop hem trobat els punt maxims i mínims definim la caixa
+    capsa.a= pmax.x-pmin.x;
+    capsa.h=pmax.y-pmin.y;
+    capsa.p=pmax.z-pmin.z;
+    capsa.pmin=pmin;
+
+    return capsa;
+}
+
 void Objecte::aplicaTG(mat4 m)
 {
     aplicaTGPoints(m);
@@ -89,6 +138,7 @@ void Objecte::aplicaTG(mat4 m)
     // Actualitzacio del vertex array per a preparar per pintar
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(point4) * Index,
                      &points[0] );
+    //capsa = calculCapsa3D();
 
 }
 
@@ -132,7 +182,6 @@ void Objecte::aplicaTGCentrat(mat4 m)
     trans_origen[2] = vec4(0,0,1,centre_capsa.z);
     trans_origen[3] = vec4(0,0,0,1);
     aplicaTG(trans_origen);
-
 }
 
 void Objecte::initTextura(QString string){

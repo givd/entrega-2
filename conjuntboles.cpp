@@ -36,7 +36,13 @@ conjuntBoles::conjuntBoles()
     for (i=0; i<NUM_BOLES; i++)
         boles[i]->aplicaTG(Translate(*positions[i]));
 
-    //this->capsa = calculCapsa3D();
+    //Calculem la capsa minima
+    capsa = boles[0]->recalculaCapsa3D(this->capsa);
+    for (i=1; i<NUM_BOLES; i++){
+        this->capsa = boles[i]->recalculaCapsa3D(this->capsa);
+        //std::cout<<"Bola["<<i<<"]->"<<capsaBola<<std::endl;
+        //std::cout<<"Capsa"<<capsa<<std::endl;
+    }
 }
 
 conjuntBoles::~conjuntBoles()
@@ -44,6 +50,7 @@ conjuntBoles::~conjuntBoles()
     for (int i=0; i<NUM_BOLES; i++)
         delete this->boles[i];
 }
+
 
 void conjuntBoles::aplicaTG(mat4 m){
     for (int i=0; i<NUM_BOLES; i++)

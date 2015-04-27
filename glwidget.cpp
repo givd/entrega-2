@@ -13,6 +13,8 @@ GLWidget::GLWidget(QWidget *parent)
     setFocusPolicy( Qt::StrongFocus );
     esc = new Escena();
 
+    cameraActual = true;
+
     xRot = 0;
     yRot = 0;
     zRot = 0;

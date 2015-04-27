@@ -20,6 +20,7 @@ public:
     void make();
 private:
     int currentIterations;
+
     point4 vertex[4];
     color4 color;
     void triangle(const point4& a, const point4& b, const point4& c);
